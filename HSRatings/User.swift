@@ -7,20 +7,21 @@
 //
 
 import Foundation
+import FirebaseDatabase
 
 struct User {
-    
+
     let uid: String
     let email: String
+    let username: String
     
-    init(authData: User) {
-        uid = authData.uid
-        email = authData.email
+    init(snapshot: DataSnapshot) {
+        uid = snapshot.key
+        
+        let snapshotValue = snapshot.value as! [String : AnyObject]
+        email = snapshotValue["email"] as! String
+        username = snapshotValue["username"] as! String
     }
     
-    init(uid: String, email: String) {
-        self.uid = uid
-        self.email = email
-    }
     
 }
