@@ -46,6 +46,13 @@ class MainViewController: UIViewController {
     }
     */
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSurveys" {
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
+        }
+    }
     
     @IBAction func logOutButtonTapped(_ sender: Any) {
         if Auth.auth().currentUser != nil {

@@ -99,6 +99,7 @@
                         <outlet property="passwordTextField" destination="qOY-gP-U5p" id="9so-9F-HEt"/>
                         <outlet property="signUpButton" destination="KcG-ld-I9F" id="CGh-5l-8TM"/>
                         <segue destination="b9W-5O-uex" kind="show" identifier="signUp" id="qnk-ub-Xpz"/>
+                        <segue destination="nuO-Ah-ez8" kind="show" identifier="login" id="wqK-Uf-3dA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -227,7 +228,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Show Surveys"/>
                                 <connections>
-                                    <segue destination="hfJ-K4-COk" kind="show" id="1Cr-e3-d5d"/>
+                                    <segue destination="hfJ-K4-COk" kind="show" identifier="showSurveys" id="PMo-5r-etM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5V5-FS-9fk">
@@ -242,17 +243,21 @@
                                 <rect key="frame" x="121" y="237" width="79" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Add Survey"/>
+                                <connections>
+                                    <segue destination="MNX-rK-XIx" kind="show" id="AE0-uK-gga"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="VIT-vj-XTo"/>
                     <connections>
                         <outlet property="usernameLabel" destination="G9m-hT-8Iv" id="0F6-07-77j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mma-Nh-tQj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004" y="530"/>
+            <point key="canvasLocation" x="1789" y="530"/>
         </scene>
         <!--Create Survey View Controller-->
         <scene sceneID="ag3-VN-pdz">
@@ -271,28 +276,66 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="WaL-FQ-0Ld">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="createSurveyTableViewCell" id="WaL-FQ-0Ld" customClass="CreateSurveyTableViewCell" customModule="HSRatings" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="288" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WaL-FQ-0Ld" id="EDL-Yb-m2H">
                                             <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcH-mu-tPF">
+                                                    <rect key="frame" x="29" y="12" width="42" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="playerNameLabel" destination="OcH-mu-tPF" id="W4R-Eg-THH"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="MNX-rK-XIx" id="10w-kG-FJD"/>
+                                    <outlet property="delegate" destination="MNX-rK-XIx" id="Fxp-3X-lX7"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U2j-qd-WiW">
                                 <rect key="frame" x="137" y="368" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="createSurveyButtonTapped:" destination="MNX-rK-XIx" eventType="touchUpInside" id="Hhc-BM-A4Y"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="playerTableView" destination="Nzf-5d-I7g" id="B2w-c9-4qI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tja-s1-F9f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1854" y="921"/>
+            <point key="canvasLocation" x="2736" y="926"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nIw-21-Rht">
+            <objects>
+                <navigationController id="nuO-Ah-ez8" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pZq-lR-MMh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="AQF-dN-VPU" kind="relationship" relationship="rootViewController" id="hge-rQ-pEg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xBV-aM-BxY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1026" y="530"/>
         </scene>
         <!--Survey Table View Controller-->
         <scene sceneID="bny-20-xjp">
@@ -337,10 +380,11 @@
                             <outlet property="delegate" destination="hfJ-K4-COk" id="Gy5-Uy-wAx"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="Vkn-ld-4zU"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1p-YS-OfP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1856" y="156"/>
+            <point key="canvasLocation" x="2736" y="139"/>
         </scene>
     </scenes>
     <resources>

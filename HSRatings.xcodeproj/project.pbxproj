@@ -12,6 +12,8 @@
 		0802EC6E1F115EE70053ED57 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0802EC6D1F115EE70053ED57 /* MainViewController.swift */; };
 		0802EC711F117B1E0053ED57 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0802EC701F117B1E0053ED57 /* User.swift */; };
 		0802EC781F118ABB0053ED57 /* SurveyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0802EC771F118ABB0053ED57 /* SurveyTableViewController.swift */; };
+		08621ACF1F12B8A0002222BE /* CreateSurveyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08621ACE1F12B8A0002222BE /* CreateSurveyTableViewCell.swift */; };
+		08621AD11F12D85F002222BE /* Survey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08621AD01F12D85F002222BE /* Survey.swift */; };
 		08C5C5251F0C3F2300396B0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C5C5241F0C3F2300396B0B /* AppDelegate.swift */; };
 		08C5C5271F0C3F2300396B0B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C5C5261F0C3F2300396B0B /* LoginViewController.swift */; };
 		08C5C52A1F0C3F2300396B0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08C5C5281F0C3F2300396B0B /* Main.storyboard */; };
@@ -28,6 +30,8 @@
 		0802EC6D1F115EE70053ED57 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0802EC701F117B1E0053ED57 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0802EC771F118ABB0053ED57 /* SurveyTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurveyTableViewController.swift; sourceTree = "<group>"; };
+		08621ACE1F12B8A0002222BE /* CreateSurveyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateSurveyTableViewCell.swift; sourceTree = "<group>"; };
+		08621AD01F12D85F002222BE /* Survey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Survey.swift; sourceTree = "<group>"; };
 		08C5C5211F0C3F2300396B0B /* HSRatings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSRatings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08C5C5241F0C3F2300396B0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08C5C5261F0C3F2300396B0B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				0802EC701F117B1E0053ED57 /* User.swift */,
+				08621AD01F12D85F002222BE /* Survey.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -112,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				08F333721F124D9700D1D86F /* SurveyTableViewCell.swift */,
+				08621ACE1F12B8A0002222BE /* CreateSurveyTableViewCell.swift */,
 			);
 			name = ViewCells;
 			sourceTree = "<group>";
@@ -264,6 +270,8 @@
 				08C5C5251F0C3F2300396B0B /* AppDelegate.swift in Sources */,
 				0802EC781F118ABB0053ED57 /* SurveyTableViewController.swift in Sources */,
 				08F333731F124D9700D1D86F /* SurveyTableViewCell.swift in Sources */,
+				08621ACF1F12B8A0002222BE /* CreateSurveyTableViewCell.swift in Sources */,
+				08621AD11F12D85F002222BE /* Survey.swift in Sources */,
 				0802EC711F117B1E0053ED57 /* User.swift in Sources */,
 				0802EC6E1F115EE70053ED57 /* MainViewController.swift in Sources */,
 			);
