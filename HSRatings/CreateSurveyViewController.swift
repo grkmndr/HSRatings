@@ -79,13 +79,13 @@ class CreateSurveyViewController: UIViewController, UITableViewDelegate, UITable
         
         let timestamp = NSDate().timeIntervalSince1970
         
-        var ratings = [String: Double]()
+        var ratings = [String]()
         
         for user in users {
-            ratings[user.uid] = 0.0
+            ratings.append(user.uid)
         }
         
-        surveysRef.childByAutoId().setValue(["timestamp": timestamp, "ratings": ratings ])
+        surveysRef.childByAutoId().setValue(["timestamp": timestamp, "players": ratings])
         
     }
 

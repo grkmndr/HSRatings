@@ -1,42 +1,41 @@
 //
-//  SurveyTableViewController.swift
+//  SurveyDetailTableViewController.swift
 //  HSRatings
 //
-//  Created by mac apple on 09/07/2017.
+//  Created by mac apple on 12/07/2017.
 //  Copyright © 2017 grkmndr. All rights reserved.
 //
 
 import UIKit
+import FirebaseAuth
 import FirebaseDatabase
 
-class SurveyTableViewController: UITableViewController {
-    
+class SurveyDetailTableViewController: UITableViewController {
+
+    var survey : Survey?
     let surveysRef = Database.database().reference(withPath: "surveys")
-    var surveys: [Survey] = []
+
+    let currentUser = Auth.auth().currentUser
+    let usersRef = Database.database().reference(withPath: "users")
+    
+    var uids: [String] = []
+    var usernames: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        self.tableView.contentInset = UIEdgeInsets(top: 20,left: 0,bottom: 0,right: 0)
+        uids = (survey?.players)!
         
-        
-        
-        surveysRef.observe(DataEventType.value, with: { (snapshot) in
-            for survey in snapshot.children {
+        for uid in uids {
+            usersRef.queryOrderedByKey().queryEqual(toValue: uid).observe(DataEventType.value, with: { (snapshot) in
                 
-                let surveyInList = Survey(snapshot: survey as! DataSnapshot)
-                self.surveys.append(surveyInList)
-                
-            }
-            self.tableView.reloadData()
-        })
-        
+            })
+        }
+        //Removes the current user from the survey
+        if let index = usernames.index(of: (currentUser?.uid)!) {
+            usernames.remove(at: index)
+            tableView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,33 +45,36 @@ class SurveyTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return surveys.count
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
     }
 
-    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        if let currentSurvey = survey {
+            return currentSurvey.players.count
+        }
+        return 0
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "surveyTableViewCell", for: indexPath) as! SurveyTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "surveyDetailTableViewCell", for: indexPath) as! SurveyDetailTableViewCell
         
-        // Configure the cell...
-        let date = NSDate(timeIntervalSince1970: surveys[indexPath.row].timestamp)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
         
-        let timestamp = dateFormatter.string(from: date as Date)
-        cell.surveyCellDateLabel.text = String(timestamp)
         
         return cell
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showSurveyDetail",
-        let destination = segue.destination as? SurveyDetailTableViewController,
-        let surveyIndex = self.tableView.indexPathForSelectedRow?.row {
-            destination.survey = surveys[surveyIndex]
-        }
+    /*
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
+
+        return cell
     }
+    */
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
