@@ -70,9 +70,14 @@ class SurveyTableViewController: UITableViewController {
         if segue.identifier == "showSurveyDetail",
         let destination = segue.destination as? SurveyDetailTableViewController,
         let surveyIndex = self.tableView.indexPathForSelectedRow?.row {
-            destination.survey = surveys[surveyIndex]
+            destination.currentSurvey = surveys[surveyIndex]
         }
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

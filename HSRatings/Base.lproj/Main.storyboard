@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -280,7 +280,7 @@
                                         <rect key="frame" x="0.0" y="28" width="288" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WaL-FQ-0Ld" id="EDL-Yb-m2H">
-                                            <rect key="frame" x="0.0" y="0.0" width="288" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="288" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcH-mu-tPF">
@@ -350,7 +350,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jyd-03-4eX" id="U4t-ml-xOJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12.07.2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dea-MR-P3E">
@@ -372,6 +372,7 @@
                                 <connections>
                                     <outlet property="surveyCellDateLabel" destination="dea-MR-P3E" id="bOp-bY-cdJ"/>
                                     <outlet property="surveyCellStatusLabel" destination="wlw-W5-8f3" id="By0-yU-tJ7"/>
+                                    <segue destination="53K-iX-tsP" kind="show" identifier="showSurveyDetail" id="n4g-Dv-hua"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -381,18 +382,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Vkn-ld-4zU"/>
-                    <connections>
-                        <segue destination="53K-iX-tsP" kind="show" identifier="showSurveyDetail" id="0Eu-tT-e5k"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u1p-YS-OfP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2736" y="139"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Survey Detail Table View Controller-->
         <scene sceneID="fGz-zC-qiW">
             <objects>
-                <tableViewController id="53K-iX-tsP" sceneMemberID="viewController">
+                <tableViewController id="53K-iX-tsP" customClass="SurveyDetailTableViewController" customModule="HSRatings" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="2an-uV-Q8t">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -402,7 +400,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FCT-sa-2YP" id="kpW-PZ-zla">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hdQ-dT-zB0" customClass="CosmosView" customModule="Cosmos">
@@ -417,7 +415,10 @@
                                                     <integer key="value" value="5"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="rating">
-                                                    <real key="value" value="3.6000000000000001"/>
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="minTouchRating">
+                                                    <real key="value" value="0.0"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
@@ -441,6 +442,13 @@
                             <outlet property="delegate" destination="53K-iX-tsP" id="Cdw-w2-poY"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="dXP-OV-jue">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="x8e-ff-Hed">
+                            <connections>
+                                <action selector="submitSurveyButtonTapped:" destination="53K-iX-tsP" id="fVC-2b-ro2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dqu-yS-FwC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
