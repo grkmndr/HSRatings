@@ -22,8 +22,9 @@ class MainViewController: UIViewController {
         let currentUserRef = self.usersRef.child((self.user?.uid)!)
         currentUserRef.observe(DataEventType.value, with: { (snapshot) in
             
-            guard let userData = snapshot.value as? NSDictionary else { return }
-            self.usernameLabel.text = userData["username"] as? String
+            let userData = User(snapshot: snapshot)
+            
+            self.usernameLabel.text = userData.username
             
         })
         

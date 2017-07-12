@@ -9,4 +9,6 @@ target 'HSRatings' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
+  
+  pod 'Cosmos', '~> 10.0'
 end

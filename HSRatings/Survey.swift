@@ -13,13 +13,13 @@ struct Survey {
     
     let surveyid: String
     let timestamp: Double
-    var ratings = [String: Double]()
+    var players = [String]()
     
     init(snapshot: DataSnapshot) {
         surveyid = snapshot.key
         
         let snapshotValue = snapshot.value as! [String : AnyObject]
         timestamp = snapshotValue["timestamp"] as! Double
-        ratings = snapshotValue["ratings"] as! [String: Double]
+        players = snapshotValue["players"] as! [String]
     }
 }
