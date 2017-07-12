@@ -16,6 +16,7 @@ class SurveyDetailTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        cosmosView.settings.fillMode = .half
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
