@@ -44,6 +44,18 @@ class SurveyDetailTableViewController: UITableViewController {
         }
     }
     
+    func submitSurvey() {
+        var ratingsArray: [NSDictionary] = []
+        for(index, rating) in ratings.enumerated(){
+            let ratingDict = ["raterId": currentUser?.uid, "ratedId": users[index].uid, "rating": rating] as [String : Any]
+            ratingsArray.append(ratingDict as NSDictionary)
+        }
+        surveysRef.child((currentSurvey?.surveyid)!).child("ratings").setValue(ratingsArray)
+        
+        self.navigationController?.popViewController(animated: true)
+            
+    }
+    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -74,8 +86,34 @@ class SurveyDetailTableViewController: UITableViewController {
 
     // MARK: - Actions
     @IBAction func submitSurveyButtonTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        
+        if ratings.contains(0) {
+            let alertController = UIAlertController(title: "Warning", message: "Are you sure you want to rate some players 0 stars?", preferredStyle: .alert)
+            
+            alertController.addAction(UIAlertAction(
+                title: "Okay",
+                style: UIAlertActionStyle.default,
+                handler: {
+                    (alert: UIAlertAction!) in
+                        self.submitSurvey()
+                }
+            ))
+            
+            alertController.addAction(UIAlertAction(
+                title: "No",
+                style: UIAlertActionStyle.cancel,
+                handler: nil
+            ))
+            
+            
+            present(alertController, animated: true, completion: nil)
+        }
+        else {
+            submitSurvey()
+        }
         
     }
+    
+    
 
 }
