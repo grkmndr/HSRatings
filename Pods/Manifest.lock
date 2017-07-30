@@ -1,4 +1,7 @@
 PODS:
+  - Charts (3.0.2):
+    - Charts/Core (= 3.0.2)
+  - Charts/Core (3.0.2)
   - Cosmos (10.0.0)
   - Firebase/Auth (4.0.0):
     - Firebase/Core
@@ -36,12 +39,14 @@ PODS:
   - GTMSessionFetcher/Core (1.1.10)
 
 DEPENDENCIES:
+  - Charts
   - Cosmos (~> 10.0)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
 
 SPEC CHECKSUMS:
+  Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
   Cosmos: bb9310e73ad1ad472b183b848b959302c569cf09
   Firebase: 284eea779b73fdff309791817da7c68bff8dd572
   FirebaseAnalytics: 6f08e746f7d66f5452931bc2e822b5df9c66b64a
@@ -52,6 +57,6 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
 
-PODFILE CHECKSUM: 3935e1509bcbc525b52580d4f6bf6c7a21b3c396
+PODFILE CHECKSUM: 964cf22aac4c20665bba4c4bbcfb041c647c5ad6
 
 COCOAPODS: 1.2.1

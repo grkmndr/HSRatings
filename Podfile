@@ -11,4 +11,6 @@ target 'HSRatings' do
   pod 'Firebase/Database'
   
   pod 'Cosmos', '~> 10.0'
+  
+  pod 'Charts'
 end
