@@ -20,6 +20,7 @@ class CreateSurveyViewController: UIViewController, UITableViewDelegate, UITable
     let surveysRef = Database.database().reference(withPath: "surveys")
     let user = Auth.auth().currentUser
     var users : [User] = []
+
     var selectedUsers : [User] = []
     
     override func viewDidLoad() {
