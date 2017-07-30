@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+
+        let storyboard =  UIStoryboard(name: "Main", bundle: Bundle.main)
+        let currentUser = Auth.auth().currentUser
+        
+        if currentUser != nil {
+            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "NavigationController")
+        } else {
+            self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+        }
+        
+        self.window?.makeKeyAndVisible()
         return true
     }
 
