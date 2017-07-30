@@ -20,6 +20,7 @@ class CreateSurveyViewController: UIViewController, UITableViewDelegate, UITable
     let surveysRef = Database.database().reference(withPath: "surveys")
     let user = Auth.auth().currentUser
     var users : [User] = []
+    var selectedUsers : [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,8 +64,10 @@ class CreateSurveyViewController: UIViewController, UITableViewDelegate, UITable
         
         if (cell?.accessoryType == UITableViewCellAccessoryType.checkmark){
             cell!.accessoryType = UITableViewCellAccessoryType.none;
+            selectedUsers = selectedUsers.filter { $0.uid != users[indexPath.row].uid }
         } else {
             cell!.accessoryType = UITableViewCellAccessoryType.checkmark;
+            selectedUsers.append(users[indexPath.row])
         }
     }
     /*
@@ -83,7 +86,7 @@ class CreateSurveyViewController: UIViewController, UITableViewDelegate, UITable
         
         var players = [String: Int]()
         
-        for user in users {
+        for user in selectedUsers {
             players[user.uid] = 0
             //players.append([user.uid: "Unanswered"])
         }
