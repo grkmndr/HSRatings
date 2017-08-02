@@ -25,7 +25,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1zV-aj-5OR" customClass="CardView" customModule="HSRatings" customModuleProvider="target">
                                 <rect key="frame" x="20" y="39" width="280" height="403"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="grkmndr@gmail.com" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BUd-FQ-SrP">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BUd-FQ-SrP">
                                         <rect key="frame" x="20" y="180" width="240" height="30"/>
                                         <color key="backgroundColor" red="0.8246748096446701" green="0.8246748096446701" blue="0.8246748096446701" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="textColor"/>
@@ -336,6 +336,8 @@
                         <outlet property="activityIndicator" destination="1xQ-3d-hkV" id="TtH-Oz-f7D"/>
                         <outlet property="activityIndicatorBelow" destination="x2Q-gW-xdc" id="DYa-FE-q9S"/>
                         <outlet property="activityIndicatorBelowView" destination="YMy-Jz-Ns7" id="RGD-Ku-v4U"/>
+                        <outlet property="avgRatingLabel" destination="e3v-rR-IpD" id="0c3-l5-sl4"/>
+                        <outlet property="matchCountLabel" destination="vm9-ry-Jmv" id="RTp-OC-JhB"/>
                         <outlet property="usernameLabel" destination="G9m-hT-8Iv" id="0F6-07-77j"/>
                     </connections>
                 </viewController>

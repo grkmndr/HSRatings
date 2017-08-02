@@ -15,6 +15,7 @@ struct Survey {
     let timestamp: Double
     var players = [String: Int]()
     var ratings = [NSDictionary]()
+    var answerCount: Int
     
     init(snapshot: DataSnapshot) {
         surveyid = snapshot.key
@@ -27,6 +28,8 @@ struct Survey {
         if snapshotValue["ratings"] != nil {
             ratings = snapshotValue["ratings"] as! [NSDictionary]
         }
+        
+        answerCount = snapshotValue["answercount"] as! Int
         
     }
 }

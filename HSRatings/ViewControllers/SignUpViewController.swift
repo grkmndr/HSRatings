@@ -91,7 +91,8 @@ class SignUpViewController: UIViewController {
                     self.ref.child("users").child((user?.uid)!)
                         .setValue(["username": self.usernameTextField.text,
                                    "email": self.emailTextField.text,
-                                   "uid": user?.uid])
+                                   "uid": user?.uid,
+                                   "rating": 0.0])
                     
                     
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")

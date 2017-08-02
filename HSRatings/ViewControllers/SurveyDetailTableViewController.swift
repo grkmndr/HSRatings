@@ -39,7 +39,7 @@ class SurveyDetailTableViewController: UITableViewController {
 //        }
         
         for uid in uids {
-            usersRef.queryOrderedByKey().queryEqual(toValue: uid.key).observe(DataEventType.value, with: { (snapshot) in
+            usersRef.queryOrderedByKey().queryEqual(toValue: uid.key).observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                 if uid.key != self.currentUser.uid {
                     self.users.append(User(snapshot: snapshot.childSnapshot(forPath: uid.key)))
                     self.ratings.append(0)
@@ -50,39 +50,92 @@ class SurveyDetailTableViewController: UITableViewController {
     }
     
     func submitSurvey() {
-        var ratingsArray: [NSDictionary] = []
-        for(index, rating) in ratings.enumerated(){
-            let ratingDict = ["raterId": currentUser.uid, "ratedId": users[index].uid, "rating": rating] as [String : Any]
-            ratingsArray.append(ratingDict as NSDictionary)
-        }
         
-        let currentSurveyRef = surveysRef.child((currentSurvey?.surveyid)!)
-        // Create the data we want to update
-        let ratingData = ["players/\(currentUser.uid)": 1, "ratings": ratingsArray] as [String : Any]
-        // Do a deep-path update
-        currentSurveyRef.updateChildValues(ratingData, withCompletionBlock: { (error, ref) -> Void in
-            if error != nil {
-                let alertController = UIAlertController(title: "Error", message: "An error occured while submitting the ratings.", preferredStyle: .alert)
-                self.present(alertController, animated: true, completion: nil)
-            } else {
-                self.navigationController?.popViewController(animated: true)
+        let currentSurveyRef = self.surveysRef.child((self.currentSurvey?.surveyid)!)
+        currentSurveyRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+            
+            self.currentSurvey = Survey(snapshot: snapshot)
+            
+            var ratingsArray : [NSDictionary] = []
+            if self.currentSurvey?.ratings != nil {
+                ratingsArray = (self.currentSurvey?.ratings)!
             }
+            
+            for(index, rating) in self.ratings.enumerated(){
+                let ratingDict = ["raterId": self.currentUser.uid, "ratedId": self.users[index].uid, "rating": rating] as [String : Any]
+                ratingsArray.append(ratingDict as NSDictionary)
+            }
+            
+            for (index, user) in self.users.enumerated() {
+                let currentUserRef = self.usersRef.child(user.uid)
+                currentUserRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+                    
+                    let predicate = NSPredicate(format: "ratedId = %@", user.uid)
+                    let count = Double((ratingsArray as NSArray).filtered(using: predicate).count)
+                    
+                    var tempUser = User(snapshot: snapshot)
+                    let playerCurrentSurveyRating = tempUser.surveyRatings[(self.currentSurvey?.surveyid)!]
+                    
+                    let playerCurrentSurveyNewRating = (playerCurrentSurveyRating! * count + self.ratings[index]) / (count + 1.0)
+                    
+                    currentUserRef.child("surveyratings").updateChildValues([(self.currentSurvey?.surveyid)! : playerCurrentSurveyNewRating])
+                    tempUser.surveyRatings[(self.currentSurvey?.surveyid)!] = playerCurrentSurveyNewRating
+                    
+                    var ratingCount = 0.0
+                    var playerTotalRating = 0.0
+                    for surveyRating in tempUser.surveyRatings {
+                        ratingCount += 1
+                        playerTotalRating += surveyRating.value
+                    }
+                    
+                    currentUserRef.updateChildValues(["rating" : playerTotalRating / ratingCount])
+                    
+                })
+                
+            }
+            
+//            for user in self.users {
+//                var playerTotalRating = 0.0
+//                var count = 0.0
+//                
+//                let predicate = NSPredicate(format: "ratedId = %@", user.uid)
+//                let filteredRatings = (ratingsArray as NSArray).filtered(using: predicate)
+//                
+//                for rating in filteredRatings {
+//                    playerTotalRating += ((rating as! NSDictionary).value(forKey: "rating") as! Double)
+//                    count += 1
+//                }
+//                
+//                let playerAvgRating = count == 0 ? -1 : playerTotalRating/count
+//                
+//                let currentUserRef = self.usersRef.child(user.uid)
+//                currentUserRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
+//                    let playerOverallRating = (snapshot.value as! NSDictionary)["rating"]! as! Double
+//                    let playerMatchCount = (snapshot.value as! NSDictionary)["matchcount"]! as! Int
+//                    if playerAvgRating != -1 {
+//                        let playerNewOverallRating = (playerOverallRating * Double(playerMatchCount - 1) + playerAvgRating) / Double(playerMatchCount)
+//                        currentUserRef.updateChildValues(["rating" : playerNewOverallRating])
+//                    }
+//                })
+//
+//            }
+            // Create the data we want to update
+            
+            let ratingData = ["players/\(self.currentUser.uid)": 1, "ratings": ratingsArray, "answercount": (self.currentSurvey?.answerCount)! + 1] as [String : Any]
+            // Do a deep-path update
+            currentSurveyRef.updateChildValues(ratingData, withCompletionBlock: { (error, ref) -> Void in
+                if error != nil {
+                    let alertController = UIAlertController(title: "Error", message: "An error occured while submitting the ratings.", preferredStyle: .alert)
+                    self.present(alertController, animated: true, completion: nil)
+                } else {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            })
         })
         
-//        surveysRef.child((currentSurvey?.surveyid)!).child("ratings").setValue(ratingsArray) { (error, surveysRef) -> Void in
-//            if error != nil {
-//                let alertController = UIAlertController(title: "Error", message: "An error occured while submitting the ratings.", preferredStyle: .alert)
-//                self.present(alertController, animated: true, completion: nil)
-//            } else {
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//        }
-        
-        
-        
-        //self.navigationController?.popViewController(animated: true)
-        
     }
+    
+    
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -100,7 +153,7 @@ class SurveyDetailTableViewController: UITableViewController {
         
         cell.playerNameLabel.text = users[indexPath.row].username
         cell.cosmosView.didFinishTouchingCosmos = { rating in
-            self.ratings[indexPath.row] = rating
+            self.ratings[indexPath.row] = rating*2.0
         }
         
         return cell

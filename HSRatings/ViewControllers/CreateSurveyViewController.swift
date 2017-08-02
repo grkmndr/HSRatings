@@ -28,7 +28,7 @@ class CreateSurveyViewController: UIViewController, UITableViewDelegate, UITable
         // Do any additional setup after loading the view.
         loadBackgroundImage()
         
-        usersRef.observe(DataEventType.value, with: { (snapshot) in
+        usersRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
             for user in snapshot.children {
                 
                 let userInList = User(snapshot: user as! DataSnapshot)
@@ -89,11 +89,22 @@ class CreateSurveyViewController: UIViewController, UITableViewDelegate, UITable
         
         for user in selectedUsers {
             players[user.uid] = 0
+            
+            if user.matchesCount != 0 {
+                usersRef.child(user.uid).updateChildValues(["matchcount" : user.matchesCount + 1])
+            } else {
+                usersRef.child(user.uid).updateChildValues(["matchcount" : 1])
+            }
+            
             //players.append([user.uid: "Unanswered"])
         }
         
-        surveysRef.childByAutoId().setValue(["timestamp": timestamp, "players": players])
+        let createdSurvey = surveysRef.childByAutoId()
+        createdSurvey.setValue(["timestamp": timestamp, "players": players, "answercount": 0])
         
+        for user in selectedUsers {
+            usersRef.child(user.uid).child("surveyratings").updateChildValues([createdSurvey.key : 0.0])
+        }
     }
 
 }

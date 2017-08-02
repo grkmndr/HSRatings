@@ -12,6 +12,8 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class MainViewController: UIViewController {
+    @IBOutlet weak var avgRatingLabel: UILabel!
+    @IBOutlet weak var matchCountLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var activityIndicatorBelow: UIActivityIndicatorView!
@@ -19,6 +21,7 @@ class MainViewController: UIViewController {
     
     
     let usersRef = Database.database().reference(withPath: "users")
+    let surveysRef = Database.database().reference(withPath: "surveys")
     let user = Auth.auth().currentUser
     
     override func viewDidLoad() {
@@ -33,11 +36,17 @@ class MainViewController: UIViewController {
         currentUserRef.observe(DataEventType.value, with: { (snapshot) in
             let userData = User(snapshot: snapshot)
             self.usernameLabel.text = userData.username
+            self.avgRatingLabel.text = "Average rating: \(userData.rating)"
+            self.matchCountLabel.text = "Games played: \(userData.matchesCount)"
             
-            self.activityIndicator.stopAnimating()
-            self.activityIndicatorBelow.stopAnimating()
-            self.activityIndicatorBelowView.removeFromSuperview()
+            if self.activityIndicator.isAnimating && self.activityIndicatorBelow.isAnimating{
+                self.activityIndicator.stopAnimating()
+                self.activityIndicatorBelow.stopAnimating()
+                self.activityIndicatorBelowView.removeFromSuperview()
+            }
         })
+        
+        
         
         // Do any additional setup after loading the view.
     }

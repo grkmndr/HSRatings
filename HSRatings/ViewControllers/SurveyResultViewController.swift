@@ -36,9 +36,12 @@ class SurveyResultViewController: UIViewController, UITableViewDelegate, UITable
         if currentSurvey != nil {
             let currentSurveyRef = surveysRef.child((currentSurvey?.surveyid)!)
             currentSurveyRef.observe(DataEventType.value, with: { (snapshot) in
-                self.currentSurvey = Survey(snapshot: snapshot)
-                self.clearChartData()
-                self.fetchChartData()
+                
+                if snapshot.childrenCount != 0 {
+                    self.currentSurvey = Survey(snapshot: snapshot)
+                    self.clearChartData()
+                    self.fetchChartData()
+                }
             })
         }
     }
@@ -47,6 +50,8 @@ class SurveyResultViewController: UIViewController, UITableViewDelegate, UITable
 
     }
 
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,7 +62,7 @@ class SurveyResultViewController: UIViewController, UITableViewDelegate, UITable
         
         for player in (currentSurvey?.players)! {
             let currentUserRef = self.usersRef.child(player.key)
-            currentUserRef.observe(DataEventType.value, with: { (snapshot) in
+            currentUserRef.observeSingleEvent(of: DataEventType.value, with: { (snapshot) in
                 let userData = User(snapshot: snapshot)
                 
                 self.surveyUsers.append(userData)
@@ -68,7 +73,7 @@ class SurveyResultViewController: UIViewController, UITableViewDelegate, UITable
                 let predicate = NSPredicate(format: "ratedId = %@", player.key)
                 let filteredRatings = ((self.currentSurvey?.ratings)! as NSArray).filtered(using: predicate)
                 for rating in filteredRatings {
-                    playerTotalRating += ((rating as! NSDictionary).value(forKey: "rating") as! Double)*2
+                    playerTotalRating += ((rating as! NSDictionary).value(forKey: "rating") as! Double)
                     count += 1
                 }
                 
@@ -198,7 +203,7 @@ class SurveyResultViewController: UIViewController, UITableViewDelegate, UITable
                 let filteredRatings = ((self.currentSurvey?.ratings)! as NSArray).filtered(using: predicate)
                 if filteredRatings.count != 0 {
                     for rating in filteredRatings {
-                        let ratingValue = ((rating as! NSDictionary).value(forKey: "rating") as! Double)*2
+                        let ratingValue = ((rating as! NSDictionary).value(forKey: "rating") as! Double)
                         ratingDistribution[Int(ratingValue)] += 1
                     }
 
